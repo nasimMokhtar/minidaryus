@@ -1,0 +1,45 @@
+<span class="login-title">
+  <h1 class="login-h1">LOGIN</h1>
+</span>
+<div class="devider" ></div>
+<div class="white-text">
+  <span class="glyphicon glyphicon-stop glyphicon-orange-color" style="color:coral"></span>
+  If you don't have an account let's register it first. <br>
+  <span class="glyphiconcolor" ></span>
+  <span class="register-account"><a routerLink="/register">Register an account</a></span><br>
+  <span class="glyphicon glyphicon-stop glyphicon-orange-color" style="color:coral"></span>
+  This is a mini simple app!
+</div>
+<div>
+  <form  [formGroup]="form"  (ngSubmit)="signIn(form)">
+    <div *ngIf="isError" class="alert alert-danger form-error-msg-bar">
+      {{errorMessage}}
+    </div>
+    <div class="form-group">
+      <label for="email">Email address:</label>
+      <input type="text" formControlName="email" id="email" class="form-control login-input" >
+      <div *ngIf="email.pending"><img src="./../../assets/loader.gif" width="30"></div>
+      <div *ngIf="email.touched && email.invalid" class="alert alert-danger  form-error-msg-bar">
+        <div  *ngIf="email.errors">
+          <div *ngIf="email.errors.required">Email address is required.</div>
+          <div *ngIf="email.errors.cannotContainSpace">Email address can not contain space.</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password" >Password:</label>
+      <input type="password" formControlName="password" id="password" class="form-control login-input">
+      <div *ngIf="password.pending"><img src="./../../assets/loader.gif" width="30"></div>
+      <div *ngIf="password.touched && password.invalid" class="alert alert-danger  form-error-msg-bar">
+        <div  *ngIf="password.errors">
+          <div *ngIf="password.errors.required">Password is required.</div>
+          <div *ngIf="password.errors.minlength">Password should have minimum {{password.errors.minlength.requiredLength}} characters.</div>
+          <div *ngIf="password.errors.cannotContainSpace">Password can not contain space.</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit" >Login</button>
+  </form>
+</div>
+
+

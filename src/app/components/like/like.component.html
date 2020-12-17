@@ -1,0 +1,7 @@
+<div class="container">
+  <p class="display-4" (click)="isLiked()">
+    <span [style.color] = "likeIcon? 'red' : 'gray'"
+          class="glyphicon glyphicon-heart "></span>
+    <span class="number-of-likes">{{numberOfLikes}}</span>
+  </p>
+</div>

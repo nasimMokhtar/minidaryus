@@ -1,0 +1,9 @@
+{
+  "origin": "http://localhost",
+  "port": "4000",
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  }
+}

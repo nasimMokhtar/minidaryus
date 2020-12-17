@@ -1,0 +1,116 @@
+<span class="register-title">
+  <h1 class="register-h1">Register an account</h1>
+</span>
+<div class="devider" ></div>
+<div *ngIf="isRegistered" class="success-msg-bar">
+  <h1 class="thanks-h1">Thank you!</h1>
+  <div>You have registered successfully.</div>
+  <div><a routerLink="/home">Let's get into the system.</a></div>
+</div>
+
+<div *ngIf="!isRegistered">
+  <div class="white-text">
+    <span class="glyphicon glyphicon-stop glyphicon-orange-color" style="color:coral"></span>
+    If you already have an account let's <span class="register-account"><a routerLink="/">Login</a></span>. <br>
+
+    <span class="glyphicon glyphicon-stop glyphicon-orange-color" style="color:coral"></span>
+    Please fill the form and press the register button.
+  </div>
+  <form [formGroup]="form"  (ngSubmit)="submitForm(form)">
+    <div *ngIf="form.pending"><img src="./../../assets/loader.gif" width="30"></div>
+    <div *ngIf="isError" class="alert alert-danger form-error-msg-bar">
+      {{errorMessage}}
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="firstName" class="label-leftcol">Firstname:</label>
+            <input type="text" formControlName="firstName" id="firstName" class="form-control reg-input-leftcol" >
+            <div *ngIf="firstName.pending"><img src="./../../assets/loader.gif" width="30"></div>
+            <div *ngIf="firstName.touched && firstName.invalid" class="alert alert-danger error-msg-bar">
+              <div  *ngIf="firstName.errors">
+                <div *ngIf="firstName.errors.required">Firstname is required.</div>
+                <div *ngIf="firstName.errors.minlength">Firstname should have minimum {{firstName.errors.minlength.requiredLength}} characters.</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName" class="label-leftcol">Lastname:</label>
+            <input type="text" formControlName="lastName" id="lastName" class="form-control reg-input-leftcol" >
+            <div *ngIf="lastName.pending"><img src="./../../assets/loader.gif" width="30"></div>
+            <div *ngIf="lastName.touched && lastName.invalid" class="alert alert-danger  error-msg-bar">
+              <div  *ngIf="lastName.errors">
+                <div *ngIf="lastName.errors.required">Lastname is required.</div>
+                <div *ngIf="lastName.errors.minlength">Lastname should have minimum {{lastName.errors.minlength.requiredLength}} characters.</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="country" class="label-leftcol">Country:</label>
+            <select  formControlName="country" name="country" id="country" class="form-control reg-input-leftcol" >
+              <option value="Sweden"></option>
+              <option *ngFor="let country of countries" value="{{country}}">{{country}}</option>
+            </select>
+            <div *ngIf="country.touched && country.invalid" class="alert alert-danger  error-msg-bar">
+              <div  *ngIf="country.errors">
+                <div *ngIf="country.errors.required">Country name is required.</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mobileNumber" class="label-leftcol">Mobile Number:</label>
+            <input type="text" formControlName="mobileNumber" id="mobileNumber" class="form-control reg-input-leftcol" >
+            <div *ngIf="mobileNumber.pending"><img src="./../../assets/loader.gif" width="30"></div>
+            <div *ngIf="mobileNumber.touched && mobileNumber.invalid" class="alert alert-danger error-msg-bar">
+              <div  *ngIf="mobileNumber.errors">
+                <div *ngIf="mobileNumber.errors.required">Mobile Number is required.</div>
+                <div *ngIf="mobileNumber.errors.minlength">Mobile Number is not valid.</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="birthDate" class="label-leftcol">Date of birth:</label>
+            <input type="date" formControlName="birthDate" id="birthDate" class="form-control reg-input-leftcol" >
+            <div *ngIf="birthDate.pending"><img src="./../../assets/loader.gif" width="30"></div>
+            <div *ngIf="birthDate.touched && birthDate.invalid" class="alert alert-danger error-msg-bar">
+              <div  *ngIf="birthDate.errors">
+                <div *ngIf="birthDate.errors.required">Date of birth is required.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="email" class="label-rightcol">Email address:</label>
+            <input type="text" formControlName="email" id="email" class="form-control reg-input-rightcol" >
+            <div *ngIf="email.pending"><img src="./../../assets/loader.gif" width="30"></div>
+            <div *ngIf="email.touched && email.invalid" class="alert alert-danger  error-msg-bar">
+              <div  *ngIf="email.errors">
+                <div *ngIf="email.errors.required">Email address is required.</div>
+                <div *ngIf="email.errors.cannotContainSpace">Email address can not contain space.</div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="label-rightcol">Password:</label>
+            <input type="password" formControlName="password" id="password" class="form-control reg-input-rightcol">
+            <div *ngIf="password.pending"><img src="./../../assets/loader.gif" width="30"></div>
+            <div *ngIf="password.touched && password.invalid" class="alert alert-danger  error-msg-bar">
+              <div  *ngIf="password.errors">
+                <div *ngIf="password.errors.required">Password is required.</div>
+                <div *ngIf="password.errors.minlength">Password should have minimum {{password.errors.minlength.requiredLength}} characters.</div>
+                <div *ngIf="password.errors.cannotContainSpace">Password can not contain space.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary reg-submit" type="submit"  [disabled]="!form.valid" >Submit</button>
+    </div>
+  </form>
+</div>
+
+<!--<p  style="color: #ffffff;">-->
+<!--  {{form.value | json}}-->
+<!--</p>-->
